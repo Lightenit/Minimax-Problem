@@ -14,13 +14,13 @@ function [Stepsize, feval_num, step_flag] = ArmijoRule(Objf, x, d, alph, bet, ph
 % Stepsize: stepsize
 % feval_num : the number of evaluation time of Objf
 % step_flag : whether get the stepsize using ArmijoRule
-[exit_code, feval_num] = ArmijoTest(Objf, x, d, 1, ph);
+[exit_code, feval_num] = ArmijoTest(Objf, x, d, 1, ph, mu);
 step_flag = 0;
 if exit_code > 0.5
     Stepsize = 1;
 else
     exit_flag = 0;
-    for i = 1:100
+    for i = 1:1000
         [exit_code, feval_nu] = ArmijoTest(Objf, x, d, alph * bet^i, ph, mu);
         if exit_code > 0.5
             feval_num = feval_num + feval_nu;
@@ -30,7 +30,7 @@ else
         end
     end
     if exit_flag == 0
-        Stepsize = 0.000001;
+        Stepsize = 0.000000001;
         step_flag = 1;
     end
 end

@@ -8,7 +8,8 @@ fx= calf(Objf, x, mu);
 gx = calg(Objf, x, mu);
 Gx = calHe(Objf, x, mu);
 while error > epsilon
-    d = - gx / Gx;
+%     d = - gx / Gx;
+    d = - inv(Gx) * gx;
     [stepsize, feval_nu] = ArmijoRule(Objf, x, d, 5, 0.5^0.5, 0.1, mu);
     x = x + stepsize * d;
     nfx = calf(Objf, x, mu);

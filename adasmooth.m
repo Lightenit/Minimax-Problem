@@ -21,9 +21,11 @@ while error > epsilon
     [MG, pd_flag] = Cholesky_Revise(Gx, 1);
     Cond_MG = 1/cond(MG);
     if pd_flag > 0.5 && Cond_MG >= k1 && pm <= k3
-        d = -gx / MG;
+%         d = -gx / MG;
+        d = - inv(MG) * gx;
     elseif pd_flag > 0.5 && max(eigen(MG)) <= k2
-        d = -gx / MG;
+%         d = -gx / MG;
+        d = -inv(MG) * gx;
     else
         d = -gx;
     end

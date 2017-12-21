@@ -1,5 +1,5 @@
 function fx = calf(Objf, x, mu)
-q = size(Objf, x);
+q = size(Objf, 2);
 fx = 0;
 for i = 1: q
     fxi = feval(Objf{i}, x);

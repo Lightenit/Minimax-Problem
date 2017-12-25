@@ -2,6 +2,7 @@ function [u, new_xi] = updateUxi(Objf, x, u, pp, xi, lambd)
 m = size(Objf, 2);
 v = zeros(m ,1);
 M = -10000;
+% m = size(Objf, 2);
 for i = 1 : m
     temp_m = feval(Objf{i} , x) - xi;
     if temp_m > M
@@ -13,9 +14,6 @@ for i = 1 : m
     if feval( Objf{i} , x) - xi > 0
         v(i) = u(i) * ( ( (feval(Objf{i}, x) - xi) / M )^(q - 1) );
     end
-end
-if sum(v) == 0
-    v = ones(m, 1);
 end
 u = v ./ sum(v);
 if M < 0 

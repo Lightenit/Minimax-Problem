@@ -29,4 +29,3 @@ else
     end
     f = M * f^(1/q);
 end
-end

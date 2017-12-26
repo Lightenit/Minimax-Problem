@@ -62,5 +62,5 @@ for i = 1 : n
         end
     end
 end
-fx = abs(fx - S);
+fx = abs()
 end

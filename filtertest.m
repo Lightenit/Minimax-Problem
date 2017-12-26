@@ -19,10 +19,11 @@ Objf = cell(1, 41);
 for i = 1 : 41
     Objf{i} = @(x)filterphi(x, pphi(i));
 end
-p = [0 1  0  -0.15  0  -0.68  0  -0.72  0.37]';
+p = [0 0.9990  0  -0.15  0  -0.68  0  -0.72  0.37]';
 epsilon = 1e-10;
-[exit_code, xstar, fstar, feval_num, iter_num] = leastpth(Objf, p, epsilon)
-% epsilon = 1e-6;
-% bet = 0.5;
-% mu = 1000;
-% [exit_code, xstar, fstar, feval_num, iter_num] = xusmooth(Objf, p, epsilon, mu, bet)
+% feval(U, x0, u, 10, Objf, xi)
+% [exit_code, xstar, fstar, feval_num, iter_num] = leastpth(Objf, p, epsilon)
+epsilon = 1e-6;
+bet = 0.5;
+mu = 1000;
+[exit_code, xstar, fstar, feval_num, iter_num] = xusmooth(Objf, p, epsilon, mu, bet)

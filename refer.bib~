@@ -1,0 +1,16 @@
+@Article{Charalambous1979,
+author="Charalambous, Christakis",
+title="Acceleration of the leastpth algorithm for minimax optimization with engineering applications",
+journal="Mathematical Programming",
+year="1979",
+month="Dec",
+day="01",
+volume="17",
+number="1",
+pages="270--297",
+abstract="Over the past few years a number of researchers in mathematical programming and engineering became very interested in both the theoretical and practical applications of minimax optimization. The purpose of the present paper is to present a new method of solving the minimax optimization problem and at the same time to apply it to nonlinear programming and to three practical engineering problems. The original problem is defined as a modified leastpth objective function which under certain conditions has the same optimum as the original problem. The advantages of the present approach over the Bandler-Charalambous leastpth approach are similar to the advantages of the augmented Lagrangians approach for nonlinear programming over the standard penalty methods.",
+issn="1436-4646",
+doi="10.1007/BF01588251",
+url="https://doi.org/10.1007/BF01588251"
+}
+

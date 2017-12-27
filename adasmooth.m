@@ -7,7 +7,7 @@ x = p;
 fx= calf(Objf, x, 1/pm);
 gx = calg(Objf, x, 1/pm);
 Gx = calHe(Objf, x, 1/pm);
-tao = 1e-4;
+tao = 1e-2;
 phat = log(q/epsilon);
 gamm = 1;
 ea = 0.001;
@@ -18,6 +18,7 @@ k2 = 1e30;
 k3 = 1000 * phat;
 while error > epsilon
 %    d = - gx / Gx;
+%% Stabilized Newton
     [MG, pd_flag] = Cholesky_Revise(Gx, 1);
     Cond_MG = 1/cond(MG);
     if pd_flag > 0.5 && Cond_MG >= k1 && pm <= k3
@@ -29,6 +30,9 @@ while error > epsilon
     else
         d = -gx;
     end
+    
+%% Armijo
+%     d =  - (Gx + 1e-6 * eye(size(x, 1))) \ gx;
     [stepsize, feval_nu] = ArmijoRule(Objf, x, d, 5, 0.5^0.5, 0.1, 1/pm);
     x = x + stepsize * d;
     nfx = calf(Objf, x, 1/pm);
@@ -52,7 +56,14 @@ while error > epsilon
         end
     end
 end
+maxf = -10000;
+for i = 1: q
+    if feval(Objf{i}, x) > maxf
+        maxf = feval(Objf{i}, x);
+    end
+end
 xstar = x;
-fstar = fx;
+fstar = maxf;
 exit_code = 1;
+
 end

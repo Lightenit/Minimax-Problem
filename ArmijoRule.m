@@ -30,7 +30,7 @@ else
         end
     end
     if exit_flag == 0
-        Stepsize = 0.000000001;
+        Stepsize = 1e-9;
         step_flag = 1;
     end
 end

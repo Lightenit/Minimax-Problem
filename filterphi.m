@@ -17,7 +17,7 @@ for i = 1 : K
     gx( 4 * (i - 1) + 1 ) = fx / ((N(i))^2) * ( x( 4 * (i -1) + 1 ) + ( 1 + x( 4 * (i-1) + 2 ) ) * cos(thet) );
     gx( 4 * (i - 1) + 2 ) = fx / ((N(i))^2) * ( -1 + 2 * cos(thet)^2 + x( 4 * (i-1) + 1 ) * cos(thet) + x( 4 * (i-1) + 2 ) );
     gx( 4 * (i - 1) + 3 ) =-fx / ((D(i))^2) * ( x( 4 * (i - 1) + 3 ) + ( 1 + x( 4 * (i-1) + 4 )) * cos(thet) );
-    gx( 4 * (i - 1) + 4) =-fx / ((D(i))^2) * ( -1 + 2 * cos(thet)^2 + x( 4 * (i-1) + 3 ) * cos(thet) + x( 4 * (i-1) + 4 ) );
+    gx( 4 * (i - 1) + 4 ) =-fx / ((D(i))^2) * ( -1 + 2 * cos(thet)^2 + x( 4 * (i-1) + 3 ) * cos(thet) + x( 4 * (i-1) + 4 ) );
 end
 gx(n) = fx/x(n);
 Gx = zeros(n ,n);
@@ -62,5 +62,6 @@ for i = 1 : n
         end
     end
 end
+gx = sign(fx - S) * gx;
 fx = abs(fx - S);
 end

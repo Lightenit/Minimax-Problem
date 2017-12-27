@@ -9,8 +9,9 @@ gx = calg(Objf, x, mu);
 Gx = calHe(Objf, x, mu);
 while error > epsilon
 %     d = - gx / Gx;
-    d = - inv(Gx) * gx;
-    [stepsize, feval_nu] = ArmijoRule(Objf, x, d, 5, 0.5^0.5, 0.1, mu);
+%     d = - inv(Gx) * gx;
+    d = - (Gx + 1e-6 * eye(size(x, 1))) \ gx;
+    [stepsize, feval_nu] = ArmijoRule(Objf, x, d, 1, 0.8, 0.1, mu);
     x = x + stepsize * d;
     nfx = calf(Objf, x, mu);
     gx = calg(Objf, x, mu);

@@ -66,14 +66,82 @@ f(x^k,\mu_k)=f(x^k)+\mu_k\ln\sum_{i=1}^{m}{exp(\frac{f_i(x^k)-f(x^k)}{\mu_k})}\\
 \end{aligned}
 $$
 \subsection{Adaptive Smoothing Method}
-Adaptive Smoothing Method是在Smoothing Method的基础对算法做了改进，主要解决了在$\mu\rightarrow 0$时产生的ill-condition问题。具体算法如下：
+Adaptive Smoothing Method是在Smoothing Method的基础对算法做了改进，主要解决了在$\mu\rightarrow 0$时产生的ill-condition问题。Adaptive Smoothing Method将Minimax问题转化为优化公式\ref{eq:adasmooth}。
+\begin{equation}
+\label{eq:adasmooth}
+\Phi_p(x)=\log(\sum_{j\in Q}{(\exp(pf^j(x)))/p}
+\end{equation}
+具体算法如下：
 \begin{description}
 \item 取$i=0,k=0,\gamma = 1$
-\item 设$\Phi_{p_i,xx}(x_i)$是Hessian矩阵R的Cholesky修正，$c(R)$为R的条件数的倒数，则若$\Phi_{p_i,xx}(x_i)$正定且$c(R)\geq k_1,p_i\leq k_3$，转步3，若$\Phi_{p_i,xx}(x_i)$正定且$c(R)\geq k_1$且$\Phi_{p_i,xx}(x_i)$的最大特征值$\sigma_{p_i,max}(x_i)$满足$\sigma_{p_i,max}\leq k_2$，转步3，否则转步4。
+\item 设$\Phi_{p_i,xx}(x_i)$是Hessian矩阵R的Cholesky修正，$c(R)$为R的条件数的倒数，则若$\Phi_{p_i,xx}(x_i)$正定且$c(R)\geq k_1,p_i\leq k_3$，转步3，若$\Phi_{p_i,xx}(x_i)$正定且$c(R)\geq k_1$且$\Phi_{p_i,xx}(x_i)$的最大特征值$\sigma_{p_i,max}(x_i)$满足$\sigma_{p_i,max}\leq k_2$，转步3，否则转步4
 \item $h_{p_i}(x_i) = -\Phi_{p_i,xx}(x_i)^{-1}\triangledown\Phi_{p_i}(x_i)$，转步5
 \item $h_{p_i}(x_i) = -\triangledown_{p_i}(x_i)$
 \item 计算步长
 	\[\lambda_{p_i}(x_i) = \max_{l\in N}\{\beta^l|\Phi_{p_i}(x_i+\beta^lh_{p_i}(x_i))-\Phi_{p_i}(x_i)\leq \alpha\beta^l<\triangledown\Phi_{p_i}(x_i),h_{p_i}(x_i)>\}\]
 \item $x_{i+1} = x_i + \lambda_{p_i}(x_i)h_{p_i}(x_i)$
-\item 
+\item 若$|\triangledown\Phi_{p_i}(x_i)|^2\leq \tao(p_i)$，转步7，否则设$p_{i+1}=p_i, i=i+1$，转步2
+\item 若$p^*\leq \hat{p},\gamma=1$,其中$p^*$满足$\epsilon_a(p_i)\leq |\triangledown\Phi_{p^*}(x_i)|^2\leq \epsilon_b(p_i)$，则设$\gamma=\max\{2,(\hat{p}+2)/(k+1)\}, p_{i+1}=\gamma(k+2),k=k+1, i=i+1$，否则设$p_{i+1}=\gamma(k+2),k=k+1,i=i+1$，转步2
 \end{description}
+\section{实验结果及分析}
+本次实验分别在Xu\cite{Xu2001}中实验中第2,3题中的函数和\cite{Charalambous1979}中的Digital filter example滤波器函数进行结果测试。实验结果如下：
+\subsection{Xu\cite{Xu2001}中例子2}
+问题描述如下：
+\[minimize_{i=1,2,3}f_i(x)\]
+其中：
+\begin{align}
+f_1(x) = x_1^4+x_2^2\\
+f_2(x) = (2-x_1)^2 + (2-x_2)^2\\
+f_3(x) = 2\exp(-x_1+x_2)
+\end{align}
+初始点取值为$(1,0.1)$，最优点取值为$(1,1)$。各个方法的数值结果如表\ref{tab:xu2}。
+\begin{table}[htpb]
+	\centering
+	\caption{Xu中例子2}
+	\label{tab:xu2}
+	\begin{tabular}{c c c c}
+	\hine
+	方法 & $|f^*-f|$ & 迭代次数 & 函数调用次数 \\\hline
+	Least pth & & & \\
+	Smooth Method & & & \\
+	Adaptive Smooth & & & \\
+	\hline
+	\end{tabular}
+\end{table}
+\subsection{Rosen-Suzuki Problem}
+问题描述为：
+\begin{align}
+	F(x)=x_1^2+x_2^2+2x_3^2+x_4^2-5x_1-5x_2-21x_3+7x_4\\
+	g_2(x)=-x_1^2-x_2^2-x_3^2-x_4^2-x_1+x_2-x_3+x_4+8\\
+	g_3(x)=-x_1^2-2x_2^2-x_3^2-2x_4^2+x_1+x_4+10\\
+	g_4(x)=-x_1^2-x_2^2-x_3^2-2x_1+x_2+x_4+5\\
+	f_2=F(x)-\alpha_2g_2(x)\\
+	f_3=F(x)-\alpha_3g_3(x)\\
+	f_4=F(x)-\alpha_4g_4(x)\\
+	\alpha_2=\alpha_3=\alpha_4=10
+\end{align}
+初始值取值为$(0,1,2,-1)$，最优解$x^*=(0,1,2,-1)$。各个方法的数值结果如表\ref{tab:rspro}。
+\begin{table}[htpb]
+	\centering
+	\caption{Xu中例子2}
+	\label{tab:rspro}
+	\begin{tabular}{c c c c}
+	\hine
+	方法 & $|f^*-f|$ & 迭代次数 & 函数调用次数 \\\hline
+	Least pth & & & \\
+	Smooth Method & & & \\
+	Adaptive Smooth & & & \\
+	\hline
+	\end{tabular}
+\end{table}
+\subsection{Digital filter example}
+滤波器函数主要参考了\cite{}中的函数。滤波器函数定义如下：
+\begin{align}
+|H(\phi,\theta)|=&A\prod_{k=1}^{K}{\frac{N_k}{D_k}}\\
+		&A\prod_{k=1}^{K}{(\frac{1+a_k^2+b_k^2+2b_k(2\cos^2\theta-1)+2a_k(1+b_k)\cos\theta}{1+c_k^2+d_k^2+2d_k(2\cos^2\theta-1)+2c_k(1+d_k)\cos\theta})^{1/2}}
+\end{align}
+其中：
+\begin{align}
+	\phi=[a_1,b_1,\cdots,c_K,d_k,A]^T\\
+	n=4K+1
+\end{align}

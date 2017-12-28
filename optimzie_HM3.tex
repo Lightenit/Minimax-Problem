@@ -66,4 +66,14 @@ f(x^k,\mu_k)=f(x^k)+\mu_k\ln\sum_{i=1}^{m}{exp(\frac{f_i(x^k)-f(x^k)}{\mu_k})}\\
 \end{aligned}
 $$
 \subsection{Adaptive Smoothing Method}
-Adaptive Smoothing Method是在Smoothing Method的基础对算法做了改进，主要解决了在$\mu\rightarrow 0$时产生的ill-condition问题。具体算法
+Adaptive Smoothing Method是在Smoothing Method的基础对算法做了改进，主要解决了在$\mu\rightarrow 0$时产生的ill-condition问题。具体算法如下：
+\begin{description}
+\item 取$i=0,k=0,\gamma = 1$
+\item 设$\Phi_{p_i,xx}(x_i)$是Hessian矩阵R的Cholesky修正，$c(R)$为R的条件数的倒数，则若$\Phi_{p_i,xx}(x_i)$正定且$c(R)\geq k_1,p_i\leq k_3$，转步3，若$\Phi_{p_i,xx}(x_i)$正定且$c(R)\geq k_1$且$\Phi_{p_i,xx}(x_i)$的最大特征值$\sigma_{p_i,max}(x_i)$满足$\sigma_{p_i,max}\leq k_2$，转步3，否则转步4。
+\item $h_{p_i}(x_i) = -\Phi_{p_i,xx}(x_i)^{-1}\triangledown\Phi_{p_i}(x_i)$，转步5
+\item $h_{p_i}(x_i) = -\triangledown_{p_i}(x_i)$
+\item 计算步长
+	\[\lambda_{p_i}(x_i) = \max_{l\in N}\{\beta^l|\Phi_{p_i}(x_i+\beta^lh_{p_i}(x_i))-\Phi_{p_i}(x_i)\leq \alpha\beta^l<\triangledown\Phi_{p_i}(x_i),h_{p_i}(x_i)>\}\]
+\item $x_{i+1} = x_i + \lambda_{p_i}(x_i)h_{p_i}(x_i)$
+\item 
+\end{description}

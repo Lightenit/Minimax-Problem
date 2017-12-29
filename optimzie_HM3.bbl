@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+
+\bibitem{Charalambous1974Minimax}
+C.~Charalambous.
+\newblock Minimax design of recursive digital filters.
+\newblock {\em Computer-Aided Design}, 6(2):73--81, 1974.
+
+\bibitem{Charalambous1979}
+Christakis Charalambous.
+\newblock Acceleration of the leastpth algorithm for minimax optimization with
+  engineering applications.
+\newblock {\em Mathematical Programming}, 17(1):270--297, Dec 1979.
+
+\bibitem{Polak2003}
+E.~Polak, J.~O. Royset, and R.~S. Womersley.
+\newblock Algorithms with adaptive smoothing for finite minimax problems.
+\newblock {\em Journal of Optimization Theory and Applications},
+  119(3):459--484, Dec 2003.
+
+\bibitem{Xu2001}
+Song Xu.
+\newblock Smoothing method for minimax problems.
+\newblock {\em Computational Optimization and Applications}, 20(3):267--279,
+  Dec 2001.
+
+\end{thebibliography}

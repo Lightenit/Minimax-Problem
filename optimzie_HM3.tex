@@ -135,13 +135,44 @@ f_3(x) = 2\exp(-x_1+x_2)
 	\end{tabular}
 \end{table}
 \subsection{Digital filter example}
-滤波器函数主要参考了\cite{}中的函数。滤波器函数定义如下：
+滤波器函数主要参考了\cite{Charalambous1974Minimax}中的函数。滤波器函数定义如下：
 \begin{align}
-|H(\phi,\theta)|=&A\prod_{k=1}^{K}{\frac{N_k}{D_k}}\\
+|H(x,\theta)|=&A\prod_{k=1}^{K}{\frac{N_k}{D_k}}\\
 		&A\prod_{k=1}^{K}{(\frac{1+a_k^2+b_k^2+2b_k(2\cos^2\theta-1)+2a_k(1+b_k)\cos\theta}{1+c_k^2+d_k^2+2d_k(2\cos^2\theta-1)+2c_k(1+d_k)\cos\theta})^{1/2}}
 \end{align}
 其中：
 \begin{align}
-	\phi=[a_1,b_1,\cdots,c_K,d_k,A]^T\\
+	x=[a_1,b_1,\cdots,c_K,d_k,A]^T\\
 	n=4K+1
 \end{align}
+则对其求导可得$|H(x,\theta)|$对$x$中各个变量的导数。
+\begin{align}
+	\frac{\partial{|H(x,\theta)|}}{\partial{a_j}}=\frac{|H(x,\theta)|}{N_j^2}[a_j+(1+b_j)\cos\theta]\\
+	\frac{\partial{|H(x,\theta)|}}{\partial{b_j}}=\frac{|H(x,\theta)|}{N_j^2}[-1+2\cos^2\theta+a_j\cos\theta+b_j]\\
+	\frac{\partial{|H(x,\theta)|}}{\partial{c_j}}=-\frac{|H(x,\theta)|}{D_j^2}[c_j+(1+d_j)\cos\theta]\\
+	\frac{\partial{|H(x,\theta)|}}{\partial{d_j}}=\frac{|H(x,\theta)|}{D_j^2}[-1+2\cos^2\theta+c_j\cos\theta+d_j]\\
+	\frac{\partial{|H(x,\theta)|}}{\partial{A}}=\frac{|H(x,\theta)|}{A}
+\end{align}
+再对导数求导可以得到其Hessian矩阵如下：
+\begin{align}
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{a_j^2}}=\frac{|H(x,\theta)|}{N_j^4}(1-b_j)^2\sin^2\theta\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{a_j}\partial{a_k}}=\frac{|H(x,\theta)|}{N_j^2N_k^2}[a_j+(1+b_j)\cos\theta][a_k+(1+b_k)\cos\theta],(k\noteq j)\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{a_j}\partial{b_j}}=\frac{|H(x,\theta)|}{N_j^4}(a_j(\cos\theta+1)+\sin^2\theta(2\cos\theta-2b_j\cos\theta-a_jb_j))\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{a_j}\partial{b_k}}=\frac{|H(x,\theta)|}{N_j^2N_k^2}[a_j+(1+b_j)\cos\theta][-1+2\cos^2\theta+a_k\cos\theta+b_k],(k\noteq j)\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{a_j}\partial{c_k}}=-\frac{|H(x,\theta)|}{N_j^2D_k^2}[a_j+(1+b_j)\cos\theta][c_k+(1+d_k)\cos\theta]\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{a_j}\partial{d_k}}=-\frac{|H(x,\theta)|}{N_j^2D_k^2}[a_j+(1+b_j)\cos\theta][-1+2\cos^2\theta+c_j\cos\theta+d_j]\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{a_j}\partial{A}}=\frac{|H(x,\theta)|}{N_j^2A}[a_j+(1+b_j)\cos\theta]\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{b_j^2}}=\frac{|H(x,\theta)|}{N_j^4}(a_j+2\cos\theta)^2\sin^2\theta\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{b_j}\partial{b_k}}=\frac{|H(x,\theta)|}{N_j^2N_k^2}(-1+2\cos^2\theta+a_j\cos\theta+b_j)(-1+2\cos^2\theta+a_k\cos\theta+b_k),(k\noteq j)\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{b_j}\partial{c_k}}=-\frac{|H(x,\theta)|}{N_j^2D_k^2}[-1+2\cos^2\theta+a_j\cos\theta+b_j][c_k+(1+d_k)\cos\theta]\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{b_j}\partial{d_k}}=-\frac{|H(x,\theta)|}{N_j^2D_k^2}[-1+2\cos^2\theta+a_j\cos\theta+b_j][-1+2\cos^2\theta+c_j\cos\theta+d_j]\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{b_j}\partial{A}}=\frac{|H(x,\theta)|}{N_j^2A}[-1+2\cos^2\theta+a_j\cos\theta+b_j]\\	
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{c_j^2}}=\frac{|H(x,\theta)|}{D_j^4}(2(c_j+(1+d_j)\cos\theta)^2-(1-d_j)^2\sin^2\theta)\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{c_j}\partial{d_j}}=\frac{|H(x,\theta)|}{D_j^4}(4\cos\theta-5c_j^2\cos\theta+3c_j-10c_j\cos^2\theta-2d_j\cos\theta-2d_j^2\cos\theta-2d_j\cos^3\theta-6\cos^3\theta+2c_jd_j\cos\theta-3c_jd_j-6c_jd_j\cos^2\theta)\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{c_j}\partial{d_k}}=\frac{|H(x,\theta)|}{D_j^2D_k^2}[c_j+(1+d_j)\cos\theta][-1+2\cos^2\theta+c_k\cos\theta+d_k],(k\noteq j)\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{c_j}\partial{A}}=\frac{|H(x,\theta)|}{D_j^2A}[a_j+(1+b_j)\cos\theta]\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{d_j^2}}=\frac{|H(x,\theta)|}{D_j^4}[3(-1+2\cos^2\theta+c_j\cos\theta+d_j)^2-D_j^2]\\
+	\frac{\partial^2{|H(x,\theta)|}}{\partial{d_j}\partial{A}}=\frac{|H(x,\theta)|}{D_j^2A}[-1+2\cos^2\theta+c_j\cos\theta+d_j]\\	
+	\frac{\partial^2{|H(x,\theta)|}}{\partial A^2}=0
+\end{align}
+在实验中逼近函数为$S(\phi) = |1-2\phi|,0\leq\phi\leq 1$，误差函数为$e(x,\phi)=|H(x,\theta)-S(\phi)|$

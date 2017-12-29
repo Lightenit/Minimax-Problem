@@ -123,7 +123,7 @@ f_3(x) = 2\exp(-x_1+x_2)
 初始值取值为$(0,1,2,-1)$，最优解$x^*=(0,1,2,-1)$。各个方法的数值结果如表\ref{tab:rspro}。
 \begin{table}[htpb]
 	\centering
-	\caption{Xu中例子2}
+	\caption{Rosen-Suzuki Problem数值结果}
 	\label{tab:rspro}
 	\begin{tabular}{c c c c}
 	\hine
@@ -175,4 +175,28 @@ f_3(x) = 2\exp(-x_1+x_2)
 	\frac{\partial^2{|H(x,\theta)|}}{\partial{d_j}\partial{A}}=\frac{|H(x,\theta)|}{D_j^2A}[-1+2\cos^2\theta+c_j\cos\theta+d_j]\\	
 	\frac{\partial^2{|H(x,\theta)|}}{\partial A^2}=0
 \end{align}
-在实验中逼近函数为$S(\phi) = |1-2\phi|,0\leq\phi\leq 1$，误差函数为$e(x,\phi)=|H(x,\theta)-S(\phi)|$
+在实验中逼近函数为$S(\phi) = |1-2\phi|,0\leq\phi\leq 1$，误差函数为$e(x,\phi)=|H(x,\theta)-S(\phi)|$，问题转化为$\min_x\max_{0\leq\Phi\leq 1}{|e(x,\Phi)|}$。$\Phi$的取值如下：
+\begin{align}
+	\Phi = 0.0, 0.05(0.01);\quad i=1,\cdots,6,\\
+	\Phi = 0.07, 0.46(0.03);\quad i=7,\cdots,20,\\
+	\Phi = 0.5, 0.54(0.04);\quad i=21,22\\
+	\Phi = 0.57,0.67(0.1);\quad i=23,24\\
+	\Phi = 0.63,0.93(0.03);\quad i=25,\cdots,35,\\
+	\Phi = 0.95,1.0(0.01);\quad i=36,\cdots,41
+\end{align}
+初始点设为$(0,1,0,-0.15,0,-0.68,0,-0.72,0.37)$，最优解为$(0.,0.980039,0.,-0.165771,0.,-0.767228,0.367900)$各个方法的数值结果如表\ref{filter}
+\begin{table}[htpb]
+	\centering
+	\caption{滤波器数值结果}
+	\label{tab:rspro}
+	\begin{tabular}{c c c c}
+	\hine
+	方法 & $|f^*-f|$ & 迭代次数 & 函数调用次数 \\\hline
+	Least pth & & & \\
+	Smooth Method & & & \\
+	Adaptive Smooth & & & \\
+	\hline
+	\end{tabular}
+\end{table}
+\subsection{结果分析}
+\end{document}

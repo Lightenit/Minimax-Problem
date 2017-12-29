@@ -22,7 +22,13 @@ while error > epsilon
     iter_num = iter_num + 1;
     feval_num  = feval_num  + feval_nu;
 end
+maxf = -10000;
+for i = 1: q
+    if feval(Objf{i}, x) > maxf
+        maxf = feval(Objf{i}, x);
+    end
+end
 xstar = x;
-fstar = fx;
+fstar = maxf;
 exit_code = 1;
 end

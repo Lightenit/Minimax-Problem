@@ -19,4 +19,11 @@ while error > epsilon
 end
 exit_code = 1;
 xstar = x;
+maxf = -10000;
+for i = 1: m
+    if feval(Objf{i}, x) > maxf
+        maxf = feval(Objf{i}, x);
+    end
+end
+fstar = maxf;
 end

@@ -7,3 +7,4 @@ epsilon = 1e-6;
 bet = 0.5;
 mu = 100;
 [exit_code, xstar, fstar, feval_num, iter_num] = xusmooth(Objf, p, epsilon, mu, bet)
+fstar-2

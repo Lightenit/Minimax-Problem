@@ -1,4 +1,4 @@
-function [fx, gx, Gx] = filterphi(x, phi)
+function [fx, gx, Gx, fxx] = filterphi(x, phi)
 n = size(x, 1);
 K = (n - 1) / 4;
 thet = pi * phi;
@@ -68,6 +68,7 @@ for i = 1 : n
         end
     end
 end
+fxx = fx - S;
 gx = sign(fx - S) * gx;
 fx = abs(fx - S);
 end

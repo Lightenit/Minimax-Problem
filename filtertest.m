@@ -24,16 +24,16 @@ pphi(24:26) = [pphi(25:26);pphi(24)];
 % epsilon = 1e-10;
 % [exit_code, xstar, fstar, feval_num, iter_num] = leastpth(Objf, p, epsilon)
 
-epsilon = 1e-6;
-bet = 0.5;
-mu = 100;
-[exit_code, xstar, fstar, feval_num, iter_num] = xusmooth(Objf, p, epsilon, mu, bet)
-
-
 % epsilon = 1e-6;
 % bet = 0.5;
 % mu = 100;
-% [exit_code, xstar, fstar, feval_num, iter_num] = adasmooth(Objf, p, epsilon, 1/mu)
+% [exit_code, xstar, fstar, feval_num, iter_num] = xusmooth(Objf, p, epsilon, mu, bet)
+
+
+epsilon = 1e-6;
+bet = 0.5;
+mu = 100;
+[exit_code, xstar, fstar, feval_num, iter_num] = adasmooth(Objf, p, epsilon, 1/mu)
 x = zeros(1, 41);
 for i = 1: 41
     [~,~,~,x(i)] = feval(Objf{i}, xstar);

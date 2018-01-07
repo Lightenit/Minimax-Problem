@@ -1,4 +1,5 @@
 function [f, g, G] = RosenSuzukig3(x)
+% The function handle of RosenSuzuki g_3
 f = -x(1)^2 - 2 * x(2)^2 - x(3)^2 - 2 * x(4)^2 ...
       + x(1) + x(4) + 10;
 g = zeros(4, 1);

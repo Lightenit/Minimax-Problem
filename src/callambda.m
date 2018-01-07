@@ -1,4 +1,14 @@
 function lambd = callambda(Objf, x, mu)
+% Calculate the value of lambda in the Objfunction value in the xu-smooth method
+% Call: lambda = callambda(Objf, x, mu)
+%
+% Input : 
+%       Objf : A cell of Object function
+%       x : the value of x
+%       mu : the value of mu
+%
+% Output : 
+%       lambd : the value of lambda in the Object Function in xu method
 p = size(Objf, 2);
 maxf = -10000;
 for i = 1 : p

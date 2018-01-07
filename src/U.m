@@ -1,4 +1,15 @@
 function f = U(x, Objf, u, pp, xi)
+% The function handle of U function in least pth
+% Call : f = U(x, Objf, u, pp, xi)
+%
+% Input :
+%     x : the value of x
+%     Objf : the cell of Object Function
+%     pp : the p value in U function
+%     xi : the xi value in U function
+%
+% Output : 
+%     f : the function value of U function
 M = -10000;
 m = size(Objf, 2);
 for i = 1: m

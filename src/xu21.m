@@ -1,4 +1,5 @@
 function [f, g, G] = xu21(x)
+% The function handle of f_1 in Xu example 2
 f = x(1)^4 + x(2)^2;
 g = zeros(2,1);
 g(1) = 4 * x(1)^3;

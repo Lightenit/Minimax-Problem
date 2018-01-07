@@ -1,4 +1,14 @@
 function G  = calHe(Objf, x, mu)
+% Calculate the Hessian Matrix of Objfunction value in the xu-smooth method
+% Call: G = calHe(Objf, x, mu)
+%
+% Input : 
+%       Objf : A cell of Object function
+%       x : the value of x
+%       mu : the value of mu
+%
+% Output : 
+%       G : the Hessian Matrix of Object Function in xu method
 p = size(Objf, 2);
 n = size(x, 1);
 G = zeros(n, n);

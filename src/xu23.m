@@ -1,4 +1,5 @@
 function [f, g, G] = xu23(x)
+% The function handle of f_3 in Xu example 2
 f = 2 * exp( - x(1) + x(2));
 g = zeros(2, 1);
 G = zeros(2, 2);

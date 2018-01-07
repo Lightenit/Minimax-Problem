@@ -1,4 +1,20 @@
 function [exit_code, xstar, fstar, feval_num, iter_num] = adasmooth(Objf, p, epsilon, pm)
+% Using adaptive smooth method to solve minimax problem.
+% Call: [exit_code, xstar, fstar, feval_num, iter_num] = adasmooth(Objf, p, epsilon, pm)
+%
+% Input: 
+%      Objf: A cell of Object function
+%      p : the initial point of x
+%      epsilon : Rule to stop the iteration
+%      pm : the initial value of pm
+%
+% Output :
+% exit_call : Boolian Var, whether we get the optimizer point of Object
+%                      Function
+% xstar : the Optimizer point of Object Function
+% f_star : the function value at xstar
+% ite_num : the number of iteration
+% feval_num : the number of feval
 q = size(Objf, 2);
 iter_num =0;
 feval_num  = 1;
@@ -12,7 +28,7 @@ phat = log(q/epsilon);
 gamm = 1;
 ea = 0.001;
 eb = 0.02;
-k = 0;
+k = 1;
 k1 = 1e-7;
 k2 = 1e30;
 k3 = 1000 * phat;
@@ -23,16 +39,17 @@ while error > epsilon
     Cond_MG = 1/cond(MG);
     if pd_flag > 0.5 && Cond_MG >= k1 && pm <= k3
 %         d = - inv(MG) * gx;
-        d = 
+        d = - (MG + 1e-6 * eye(size(x, 1))) \ gx;
     elseif pd_flag > 0.5 && max(eig(MG)) <= k2
-        d = -inv(MG) * gx;
+%         d = -inv(MG) * gx;
+        d = - (MG + 1e-6 * eye(size(x, 1))) \ gx;
     else
         d = -gx;
     end
     
 %% Armijo
 %     d =  - (Gx + 1e-6 * eye(size(x, 1))) \ gx;
-    [stepsize, feval_nu] = ArmijoRule(Objf, x, d, 1, 0.8, 0.1, 1/pm);
+    [stepsize, feval_nu] = ArmijoRule(Objf, x, d, 5, 0.5^0.5, 0.1, 1/pm);
     x = x + stepsize * d;
     nfx = calf(Objf, x, 1/pm);
     gx = calg(Objf, x, 1/pm);

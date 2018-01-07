@@ -1,4 +1,18 @@
 function [u, new_xi] = updateUxi(Objf, x, u, pp, xi, lambd)
+% update of u_i and xi in U function
+% Call : [u, new_xi] = updateUxi(Objf, x, u, pp, xi, lambd)
+%
+% Input : 
+%       Objf : The cell of Object Function
+%       x : the value of x
+%       u : the old u_i
+%       pp : the p value in U function
+%       xi : the old xi
+%       lambd : the lambd value in U function
+%       
+% Output:
+%       u : the new u_i
+%       new_xi : the new xi value
 m = size(Objf, 2);
 v = zeros(m ,1);
 M = -10000;

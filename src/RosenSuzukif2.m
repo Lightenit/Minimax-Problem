@@ -1,4 +1,5 @@
 function [f, g, G] = RosenSuzukif2(x)
+% The function handle of RosenSuzuki F_2
 alph = 10;
 [Ff, Fg, FG] = RosenSuzukiF(x);
 [gf, gg, gG] = RosenSuzukig2(x);

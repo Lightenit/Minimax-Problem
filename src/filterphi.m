@@ -1,4 +1,20 @@
 function [fx, gx, Gx, fxx] = filterphi(x, phi)
+% the fucntion handle of digital filter fucntion
+% Call : [fx, gx, Gx, fxx] = filterphi(x, phi)
+%
+% Input: 
+%       x : the value of x
+%       phi: the value of frequency
+%
+% Output: 
+%       fx: the abs value of error function of digital filter function in x and
+%              frequecy phi
+%       gx: the gradient of function of digital filter function in x and
+%              frequecy phi
+%        Gx: the Hessian Matrix of function of digital filter function in x and
+%              frequecy phi
+%        fxx : the value of error functionof digital filter function in x and
+%              frequecy phi
 n = size(x, 1);
 K = (n - 1) / 4;
 thet = pi * phi;

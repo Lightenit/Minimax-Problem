@@ -1,4 +1,19 @@
 function [exit_code, xstar, fstar, feval_num, iter_num] = leastpth(Objf, p, epsilon)
+% Using least pth method to solve minimax problem.
+% Call: [exit_code, xstar, fstar, feval_num, iter_num] = leastpth(Objf, p, epsilon)
+%
+% Input: 
+%      Objf: A cell of Object function
+%      p : the initial point of x
+%      epsilon : Rule to stop the iteration
+%
+% Output :
+% exit_call : Boolian Var, whether we get the optimizer point of Object
+%                      Function
+% xstar : the Optimizer point of Object Function
+% f_star : the function value at xstar
+% ite_num : the number of iteration
+% feval_num : the number of feval
 x  = p;
 feval_num = 0;
 iter_num = 0;
